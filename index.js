@@ -1,6 +1,6 @@
 import express from "express";
-import {options} from "./src/options.js";
-import {capturaMensagem} from "./src/messages/index.js"
+import {options} from './src/config/options.js'
+import {capturaMensagem} from "./src/mensagens/index.js"
 
 /* Imports */
 import { create, Client } from "@open-wa/wa-automate";

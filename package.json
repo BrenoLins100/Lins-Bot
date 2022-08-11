@@ -4,8 +4,10 @@
   "description": "Um bot criado para Whatsapp utilizando a Lib open-wa / wa-automate-nodejs",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BrenoLins100/Lins-Bot.git"

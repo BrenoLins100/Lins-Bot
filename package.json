@@ -1,0 +1,24 @@
+{
+  "name": "lins-bot",
+  "version": "1.0.0",
+  "description": "Um bot criado para Whatsapp utilizando a Lib open-wa / wa-automate-nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrenoLins100/Lins-Bot.git"
+  },
+  "keywords": [
+    "nodejs",
+    "js",
+    "wa-automate-nodejs"
+  ],
+  "author": "Breno Lins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrenoLins100/Lins-Bot/issues"
+  },
+  "homepage": "https://github.com/BrenoLins100/Lins-Bot#readme"
+}

@@ -1,0 +1,9 @@
+/node_modules
+/packages
+
+
+# managed
+**.data.json
+**.node-persist**
+**_IGNORE_**
+# end managed

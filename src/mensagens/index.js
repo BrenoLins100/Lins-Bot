@@ -13,39 +13,37 @@ async function capturaMensagem (lins = new Client(), message) {
         //tipos de mensagem
         const {body, caption, isMedia, quotedMsg, mimetype, from, id} = message;
 
+        //override
         const uaOverride = 'WhatsApp/2.2029.4 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
 
+        //filtros para as mensagens 
 
-        if(message.body === "$menu"){
-            lins.sendText(message.from, menu.menuPrincipal())
-            console.log(menu.menuPrincipal)
-        } else if(message.body === "$figurinha"){
-            if (isMedia || quotedMsg){
-                let figurinhaMetadados = {
-                    author: "Lins Bot",
-                    pack: "Lins Bot",
-                    keepScale: true,
-                    circle: false,
-                }
+        //comandos
 
-                var dadosMsg = {
-                    tipo: (isMedia) ? type: quotedMsg.type,
-                    mimetype: (isMedia)? mimetype: quotedMsg.mimetype,
-                    mensagem: (isMedia)? message: quotedMsg
-                }
+        const comandos = body || caption || ''
 
-                if(dadosMsg.tipo === "image"){
-                    var dadosMidia = await decryptMedia(dadosMsg.mensagem, uaOverride);
-                    var imgBase64 = `data:${dadosMsg.mimetype};base64, ${dadosMidia.toString('base64')}`
-                    lins.sendImageAsSticker(from, imgBase64, figurinhaMetadados).catch(err=>{
-                        console.log(err.message, "FIGURINHA")
-                    })
+        // filtro comando
 
-                }else{
-                    return lins.reply(from, "Erro", id)
-                }
-            }
-        }
+        // pegando apenas a primeira letra da frase caso seja um comando $
+
+        const comando = comandos.toLowerCase().split(' ')[0] || ''
+
+
+        //switch comando $+comando, exemplo: $menu
+
+        switch(comando){
+            case "$menu":
+                lins.sendText(from, menu.menuPrincipal())
+            break
+            case "$figurinha":
+                //separar em outro arquivo dps
+                console.log('Manuntenção')
+            break
+            case "$img":
+                var url = "https://i.pinimg.com/222x/ae/fc/a5/aefca55684256c0a467ad82663342a0b.jpg"
+                lins.sendFileFromUrl(from, url, 'foto.jpg', '')
+            break
+        }    
     }catch(err){
         console.log("Erro:"+err)
     }

@@ -1,19 +1,23 @@
+// opcoes do bot
+import {config} from '../config/config.js';
+
 const menu = {
 
     // prop que retorna um texto menu
     menuPrincipal: ()=>
     {
         return ` ╭━━⪩ *MENU DE COMANDOS* ⪨━━
- |
+ |  ${config.emojiPrefixo}${config.nomeBot}
  | ╭═══⊷
- | 🔹 $menu
- | 🔹 $figurinha (transforma imagem figurinha)
- | 🔹 $comando2
- | 🔹 $comando3
- | 🔹 $comando4
+ | 🔹 ${config.prefixo}menu
+ | 🔹 ${config.prefixo}figurinha 
+ |  (transforma imagem figurinha)
+ | 🔹 
+ | 🔹 
+ | 🔹 
  | ╰═══⊷
  |
-╰━━─「❄️」─━━ 
+╰━━─「${config.emojiPrefixo}」─━━ 
        `
     }
 }

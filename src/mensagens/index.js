@@ -4,7 +4,11 @@ import {Client} from '@open-wa/wa-automate';
 import {decryptMedia} from '@open-wa/wa-decrypt';
 
 /* Menu */
-import {menu} from '../lib/menu.js'
+import {menu} from '../lib/menu.js';
+
+/*Api gimme */
+
+import {api} from '../api/index.js';
 
 async function capturaMensagem (lins = new Client(), message) {
 
@@ -39,9 +43,14 @@ async function capturaMensagem (lins = new Client(), message) {
                 //separar em outro arquivo dps
                 console.log('Manuntenção')
             break
-            case "$img":
-                var url = "https://i.pinimg.com/222x/ae/fc/a5/aefca55684256c0a467ad82663342a0b.jpg"
-                lins.sendFileFromUrl(from, url, 'foto.jpg', '')
+            //envia um meme do reddit - diretodozapzap
+            case "$meme":
+                const resposta = await api.get('diretodozapzap')
+                .then((response)=> response)
+                //caso de erro
+                .catch((err)=>{lins.sendText(from, "⛔ Ocorreu um erro ao processar a imagem ⛔" )})
+                //caso a requisição de certo a imagem sera enviada
+                lins.sendFileFromUrl(from, resposta.data.url, 'foto.jpg',resposta.data.title )
             break
         }    
     }catch(err){

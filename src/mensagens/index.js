@@ -8,7 +8,7 @@ import {menu} from '../lib/menu.js';
 
 /*Api gimme */
 
-import {api} from '../api/index.js';
+import {gimme} from '../api/index.js';
 
 async function capturaMensagem (lins = new Client(), message) {
 
@@ -30,7 +30,11 @@ async function capturaMensagem (lins = new Client(), message) {
 
         // pegando apenas a primeira letra da frase caso seja um comando $
 
-        const comando = comandos.toLowerCase().split(' ')[0] || ''
+        const comando = comandos.toLowerCase().split(' ')[0] || ''  
+
+        //argumentos de um comando
+        const args = comandos.split(' ')
+        
 
 
         //switch comando $+comando, exemplo: $menu
@@ -43,12 +47,15 @@ async function capturaMensagem (lins = new Client(), message) {
                 //separar em outro arquivo dps
                 console.log('Manuntenção')
             break
-            //envia um meme do reddit - diretodozapzap
+            //envia um meme do reddit - ou uma imagem qualquer de lá baseado no parametro de pesquisa
             case "$meme":
-                const resposta = await api.get('diretodozapzap')
+                //removendo o $meme da string e juntando os argumentos
+                const parametroPesquisa = args.slice(1).join('')
+                //fazendo a requisição no gimme de acordo com o parametro de pesquisa do usuário
+                const resposta = await gimme.get(parametroPesquisa)
                 .then((response)=> response)
                 //caso de erro
-                .catch((err)=>{lins.sendText(from, "⛔ Ocorreu um erro ao processar a imagem ⛔" )})
+                .catch((err)=>{lins.sendText(from, "[⛔] Ocorreu um erro ao processar a imagem [⛔]" )})
                 //caso a requisição de certo a imagem sera enviada
                 lins.sendFileFromUrl(from, resposta.data.url, 'foto.jpg',resposta.data.title )
             break

@@ -2,10 +2,10 @@
 
 import axios from 'axios';
 
-//teste
+//Api gimme
 
-const api = axios.create({
+const gimme = axios.create({
     baseURL: 'https://meme-api.herokuapp.com/gimme'
 });
 
-export {api}
+export {gimme}

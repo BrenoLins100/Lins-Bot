@@ -8,4 +8,8 @@ const gimme = axios.create({
     baseURL: 'https://meme-api.herokuapp.com/gimme'
 });
 
+//Api Dalle Mini Crayion
+
+
+
 export {gimme}

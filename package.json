@@ -25,7 +25,13 @@
   "homepage": "https://github.com/BrenoLins100/Lins-Bot#readme",
   "dependencies": {
     "@open-wa/wa-automate": "^4.43.2",
+    "async": "^3.2.4",
     "axios": "^0.27.2",
-    "nodemon": "^2.0.19"
+    "fs": "^0.0.1-security",
+    "g-i-s": "^2.1.6",
+    "node-craiyon": "^0.1.0",
+    "nodemon": "^2.0.19",
+    "path": "^0.12.7",
+    "randomstring": "^1.2.2"
   }
 }

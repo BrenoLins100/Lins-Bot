@@ -1,7 +1,6 @@
 /*Escutando as mensagens */
 
 import {Client} from '@open-wa/wa-automate';
-import {decryptMedia} from '@open-wa/wa-decrypt';
 
 /* Menu */
 import {menu} from '../lib/menu.js';
@@ -9,6 +8,11 @@ import {menu} from '../lib/menu.js';
 /*Api gimme */
 
 import {gimme} from '../api/index.js';
+
+
+/* Api g-i-s */
+import gis from 'g-i-s'
+
 
 async function capturaMensagem (lins = new Client(), message) {
 
@@ -34,30 +38,50 @@ async function capturaMensagem (lins = new Client(), message) {
 
         //argumentos de um comando
         const args = comandos.split(' ')
+
+        //removendo o $comando da string e juntando os argumentos
+        const parametroPesquisa = args.slice(1).join('')
         
-
-
         //switch comando $+comando, exemplo: $menu
-
         switch(comando){
             case "$menu":
                 lins.sendText(from, menu.menuPrincipal())
             break
             case "$figurinha":
                 //separar em outro arquivo dps
-                console.log('Manuntenção')
+                const fotos = ['./src/img/bobdoodle.jpg', './src/img/lula.png']
+                for(let imagens of fotos){
+                    lins.sendFile(from, imagens, 'foto.jpg', '');
+                }
+                
             break
             //envia um meme do reddit - ou uma imagem qualquer de lá baseado no parametro de pesquisa
             case "$meme":
-                //removendo o $meme da string e juntando os argumentos
-                const parametroPesquisa = args.slice(1).join('')
                 //fazendo a requisição no gimme de acordo com o parametro de pesquisa do usuário
                 const resposta = await gimme.get(parametroPesquisa)
                 .then((response)=> response)
                 //caso de erro
                 .catch((err)=>{lins.sendText(from, "[⛔] Ocorreu um erro ao processar a imagem [⛔]" )})
                 //caso a requisição de certo a imagem sera enviada
-                lins.sendFileFromUrl(from, resposta.data.url, 'foto.jpg',resposta.data.title )
+                lins.sendFileFromUrl(from, resposta.data.url, 'foto.jpg',resposta.data.title);
+            break
+            case "$imagem":
+                gis(parametroPesquisa, (err,response)=>{
+                    if(err){
+                        lins.sendText(from, "[⛔] Não foi possível processar a requisição [⛔]")
+                    }else{
+                        const urls = response.map((x)=>{
+                            return x.url
+                        })
+                    const resposta = urls.sort(()=> Math.random() - Math.random()).slice(0,5);
+                    //passando for of para juntar as urls
+                    for (let imagens of resposta){
+                        lins.sendFileFromUrl(from, imagens, 'fotos.jpg', '').catch(async()=>{
+                            await lins.sendText(from, "[⛔] Imagem inválida [⛔]")
+                        });
+                    }
+                    }
+                })
             break
         }    
     }catch(err){
